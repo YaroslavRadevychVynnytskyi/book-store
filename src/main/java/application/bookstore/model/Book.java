@@ -7,9 +7,11 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import java.math.BigDecimal;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 
 @Entity
 @Data
+@EqualsAndHashCode(of = "id")
 public class Book {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
