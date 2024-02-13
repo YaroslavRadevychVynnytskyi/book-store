@@ -18,4 +18,3 @@ public interface BookService {
 
     List<BookDto> searchBooks(BookSearchParameters searchParameters);
 }
-  
