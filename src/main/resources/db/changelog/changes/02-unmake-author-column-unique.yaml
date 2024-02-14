@@ -1,0 +1,9 @@
+databaseChangeLog:
+  - changeSet:
+      id: unmake-author-column-unique
+      author: Yaroslav
+      changes:
+        - dropUniqueConstraint:
+            constraintName: author
+            tableName: books
+            uniqueColumns: author
