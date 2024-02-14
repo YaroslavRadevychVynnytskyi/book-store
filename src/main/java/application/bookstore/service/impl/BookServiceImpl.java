@@ -1,14 +1,17 @@
 package application.bookstore.service.impl;
 
 import application.bookstore.dto.BookDto;
+import application.bookstore.dto.BookSearchParameters;
 import application.bookstore.dto.CreateBookRequestDto;
 import application.bookstore.exception.EntityNotFoundException;
 import application.bookstore.mapper.BookMapper;
 import application.bookstore.model.Book;
-import application.bookstore.repository.BookRepository;
+import application.bookstore.repository.book.BookRepository;
+import application.bookstore.repository.book.BookSpecificationBuilder;
 import application.bookstore.service.BookService;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 
 @RequiredArgsConstructor
@@ -16,6 +19,7 @@ import org.springframework.stereotype.Service;
 public class BookServiceImpl implements BookService {
     private final BookRepository bookRepository;
     private final BookMapper bookMapper;
+    private final BookSpecificationBuilder bookSpecificationBuilder;
 
     @Override
     public BookDto save(CreateBookRequestDto bookDto) {
@@ -54,5 +58,15 @@ public class BookServiceImpl implements BookService {
             throw new EntityNotFoundException("Book with id: " + id + " does not exist");
         }
         bookRepository.deleteById(id);
+    }
+
+    @Override
+    public List<BookDto> searchBooks(BookSearchParameters searchParameters) {
+        Specification<Book> bookSpecification =
+                bookSpecificationBuilder.build(searchParameters);
+        return bookRepository.findAll(bookSpecification)
+                .stream()
+                .map(bookMapper::toDto)
+                .toList();
     }
 }
