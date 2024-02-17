@@ -4,6 +4,7 @@ import application.bookstore.dto.BookDto;
 import application.bookstore.dto.BookSearchParameters;
 import application.bookstore.dto.CreateBookRequestDto;
 import application.bookstore.service.BookService;
+import jakarta.validation.Valid;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -36,12 +37,14 @@ public class BookController {
     }
 
     @PostMapping
-    public BookDto createBook(@RequestBody CreateBookRequestDto bookDto) {
+    @ResponseStatus(HttpStatus.CREATED)
+    public BookDto createBook(@RequestBody @Valid CreateBookRequestDto bookDto) {
         return bookService.save(bookDto);
     }
 
     @PutMapping("/{id}")
-    public BookDto updateBook(@RequestBody CreateBookRequestDto bookDto, @PathVariable Long id) {
+    public BookDto updateBook(@RequestBody @Valid CreateBookRequestDto bookDto,
+                              @PathVariable Long id) {
         return bookService.updateBook(bookDto, id);
     }
 
