@@ -1,14 +1,14 @@
-package application.bookstore.service.impl;
+package application.bookstore.service.book.impl;
 
-import application.bookstore.dto.BookDto;
-import application.bookstore.dto.BookSearchParameters;
-import application.bookstore.dto.CreateBookRequestDto;
+import application.bookstore.dto.book.BookDto;
+import application.bookstore.dto.book.BookSearchParameters;
+import application.bookstore.dto.book.CreateBookRequestDto;
 import application.bookstore.exception.EntityNotFoundException;
 import application.bookstore.mapper.BookMapper;
 import application.bookstore.model.Book;
 import application.bookstore.repository.book.BookRepository;
 import application.bookstore.repository.book.BookSpecificationBuilder;
-import application.bookstore.service.BookService;
+import application.bookstore.service.book.BookService;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Pageable;
