@@ -8,8 +8,6 @@ import lombok.Data;
 
 @Data
 public class CreateBookRequestDto {
-    private static final long MIN_VALUE = 0;
-    private static final int MIN_DESCRIPTION_LENGTH = 25;
     @NotNull
     private String title;
     @NotNull
@@ -17,9 +15,9 @@ public class CreateBookRequestDto {
     @NotNull
     private String isbn;
     @NotNull
-    @Min(MIN_VALUE)
+    @Min(0)
     private BigDecimal price;
-    @Size(min = MIN_DESCRIPTION_LENGTH)
+    @Size(min = 25)
     private String description;
     private String coverImage;
 }
