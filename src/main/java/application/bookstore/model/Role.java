@@ -19,7 +19,7 @@ import org.springframework.security.core.GrantedAuthority;
 @Entity
 @Table(name = "roles")
 public class Role implements GrantedAuthority {
-    private static final String ROLE = "ROLE_";
+    private static final String PREFIX = "ROLE_";
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -30,7 +30,7 @@ public class Role implements GrantedAuthority {
 
     @Override
     public String getAuthority() {
-        return ROLE + name.name();
+        return PREFIX + name.name();
     }
 
     public enum RoleName {

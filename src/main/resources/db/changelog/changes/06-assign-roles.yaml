@@ -31,7 +31,7 @@ databaseChangeLog:
                   value: gates@email.com
               - column:
                   name: password
-                  value: $2a$10$AduObuNZCl3w.z39uaTzSur114EA2y4RsmgoI3xEZySbEcVGw8PpW
+                  value: $2a$10$AduObuNZCl3w.z39uaTzSur114EA2y4RsmgoI3xEZySbEcVGw8PpW #megadeth
               - column:
                   name: first_name
                   value: Bill
@@ -56,7 +56,7 @@ databaseChangeLog:
                   value: dimeBag@email.com
               - column:
                   name: password
-                  value: $2a$10$6uh.FMhX4h0X1hlEzP41NOnwT/hImEOjOU6r6.7Gz0jXuHiTA6h2y
+                  value: $2a$10$6uh.FMhX4h0X1hlEzP41NOnwT/hImEOjOU6r6.7Gz0jXuHiTA6h2y #fooFighters
               - column:
                   name: first_name
                   value: Dimebag
