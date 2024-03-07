@@ -59,4 +59,11 @@ public class Book {
 
     @Column(name = "isDeleted", nullable = false)
     private boolean isDeleted = false;
+
+    public Book() {
+    }
+
+    public Book(Long id) {
+        this.id = id;
+    }
 }
