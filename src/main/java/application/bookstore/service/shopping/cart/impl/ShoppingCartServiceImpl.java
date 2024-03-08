@@ -23,6 +23,7 @@ public class ShoppingCartServiceImpl implements ShoppingCartService {
     private final CartItemMapper itemMapper;
     private final CartItemRepository itemRepository;
 
+    @Transactional
     @Override
     public ShoppingCartDto addBookByUserId(Long id, AddBookToCartRequestDto request) {
         ShoppingCart shoppingCart = getShoppingCart(id);
