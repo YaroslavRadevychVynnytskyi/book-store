@@ -44,25 +44,6 @@ public class Order {
     @OneToMany(mappedBy = "order", fetch = FetchType.EAGER)
     private Set<OrderItem> orderItems;
 
-    public Order() {
-    }
-
-    public Order(Long id,
-                 User user,
-                 Status status,
-                 BigDecimal total,
-                 LocalDateTime orderDate,
-                 String shippingAddress,
-                 Set<OrderItem> orderItems) {
-        this.id = id;
-        this.user = user;
-        this.status = status;
-        this.total = total;
-        this.orderDate = orderDate;
-        this.shippingAddress = shippingAddress;
-        this.orderItems = orderItems;
-    }
-
     public enum Status {
         PENDING,
         COMPLETED,
