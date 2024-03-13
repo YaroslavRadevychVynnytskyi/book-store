@@ -7,9 +7,9 @@ import application.bookstore.dto.orderitem.OrderItemDto;
 import java.util.List;
 
 public interface OrderService {
-    OrderDto placeOrderByUserId(Long id, OrderPlacementRequestDto request);
+    OrderDto placeOrderByUserId(Long userId, OrderPlacementRequestDto request);
 
-    List<OrderDto> getOrders(Long id);
+    List<OrderDto> getOrdersByUserId(Long userId);
 
     OrderDto updateOrderStatus(Long userId, Long orderId, UpdateOrderStatusRequestDto request);
 

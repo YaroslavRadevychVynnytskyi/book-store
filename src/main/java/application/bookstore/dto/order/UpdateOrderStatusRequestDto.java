@@ -1,4 +1,6 @@
 package application.bookstore.dto.order;
 
-public record UpdateOrderStatusRequestDto(String status) {
+import application.bookstore.model.Order;
+
+public record UpdateOrderStatusRequestDto(Order.Status status) {
 }

@@ -42,7 +42,7 @@ public class OrderController {
     @Operation(summary = "Get order", description = "Retrieves user's order history")
     public List<OrderDto> getOrders(Authentication authentication) {
         User user = (User) authentication.getPrincipal();
-        return orderService.getOrders(user.getId());
+        return orderService.getOrdersByUserId(user.getId());
     }
 
     @PreAuthorize("hasRole('ADMIN')")

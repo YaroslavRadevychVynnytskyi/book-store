@@ -40,19 +40,18 @@ public class OrderServiceImpl implements OrderService {
 
     @Transactional
     @Override
-    public OrderDto placeOrderByUserId(Long id, OrderPlacementRequestDto request) {
-        User user = userRepository.findById(id)
-                .orElseThrow(() -> new EntityNotFoundException("Can't get user by id: " + id));
+    public OrderDto placeOrderByUserId(Long userId, OrderPlacementRequestDto request) {
+        User user = userRepository.findById(userId)
+                .orElseThrow(() -> new EntityNotFoundException("Can't get user by id: " + userId));
         Order order = buildOrder(user, request.shippingAddress());
         Order savedOrder = orderRepository.save(order);
-        orderItemRepository.saveAll(savedOrder.getOrderItems());
-        clearCartByUserId(id);
+        clearCartByUserId(userId);
         return orderMapper.toDto(savedOrder);
     }
 
     @Override
-    public List<OrderDto> getOrders(Long id) {
-        List<Order> orders = orderRepository.findAllByUserId(id);
+    public List<OrderDto> getOrdersByUserId(Long userId) {
+        List<Order> orders = orderRepository.findAllByUserId(userId);
         return orders.stream()
                 .map(orderMapper::toDto)
                 .toList();
@@ -66,7 +65,7 @@ public class OrderServiceImpl implements OrderService {
         Order order = orderRepository.findById(orderId)
                 .orElseThrow(() -> new EntityNotFoundException("Can't find "
                         + "order with id: " + orderId));
-        order.setStatus(Order.Status.valueOf(request.status()));
+        order.setStatus(request.status());
         return orderMapper.toDto(orderRepository.save(order));
     }
 
@@ -98,8 +97,8 @@ public class OrderServiceImpl implements OrderService {
                 .shippingAddress(address)
                 .build();
         Set<OrderItem> orderItems = getOrderItems(user.getId());
-        order.setTotal(calculateTotal(orderItems));
         orderItems.forEach(orderItem -> orderItem.setOrder(order));
+        order.setTotal(calculateTotal(orderItems));
         order.setOrderItems(orderItems);
         return order;
     }
@@ -117,7 +116,7 @@ public class OrderServiceImpl implements OrderService {
                         + "shopping cart by user id: " + id));
         Set<CartItem> cartItems = cart.getCartItems();
         return cartItems.stream()
-                .map(orderItemMapper::cartItemtoOrderItem)
+                .map(orderItemMapper::cartItemToOrderItem)
                 .collect(Collectors.toSet());
     }
 
