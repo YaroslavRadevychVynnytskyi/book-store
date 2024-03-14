@@ -44,9 +44,9 @@ public class OrderServiceImpl implements OrderService {
         User user = userRepository.findById(userId)
                 .orElseThrow(() -> new EntityNotFoundException("Can't get user by id: " + userId));
         Order order = buildOrder(user, request.shippingAddress());
-        Order savedOrder = orderRepository.save(order);
+        order = orderRepository.save(order);
         clearCartByUserId(userId);
-        return orderMapper.toDto(savedOrder);
+        return orderMapper.toDto(order);
     }
 
     @Override
