@@ -8,6 +8,7 @@ import application.bookstore.model.User;
 import application.bookstore.service.order.OrderService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import jakarta.validation.Valid;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -50,7 +51,7 @@ public class OrderController {
     @Operation(summary = "Update status", description = "Updates status of an order")
     public OrderDto updateOrderStatus(Authentication authentication,
                                       @PathVariable Long id,
-                                      @RequestBody UpdateOrderStatusRequestDto request
+                                      @RequestBody @Valid UpdateOrderStatusRequestDto request
     ) {
         User user = (User) authentication.getPrincipal();
         return orderService.updateOrderStatus(user.getId(), id, request);
