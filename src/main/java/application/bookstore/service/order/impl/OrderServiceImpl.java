@@ -20,9 +20,10 @@ import application.bookstore.repository.user.UserRepository;
 import application.bookstore.service.order.OrderService;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
+import java.util.Comparator;
 import java.util.List;
 import java.util.Set;
-import java.util.stream.Collectors;
+import java.util.TreeSet;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -96,28 +97,41 @@ public class OrderServiceImpl implements OrderService {
                 .orderDate(LocalDateTime.now())
                 .shippingAddress(address)
                 .build();
-        Set<OrderItem> orderItems = getOrderItems(user.getId());
-        orderItems.forEach(orderItem -> orderItem.setOrder(order));
-        order.setTotal(calculateTotal(orderItems));
-        order.setOrderItems(orderItems);
+        List<OrderItem> orderItemList = getOrderItems(user.getId());
+        orderItemList.forEach(orderItem -> orderItem.setOrder(order));
+        order.setTotal(calculateTotal(orderItemList));
+
+        Set<OrderItem> orderItemSet = new TreeSet<>(getComparator());
+        orderItemSet.addAll(orderItemList);
+        order.setOrderItems(orderItemSet);
         return order;
     }
 
-    private BigDecimal calculateTotal(Set<OrderItem> orderItems) {
+    private BigDecimal calculateTotal(List<OrderItem> orderItems) {
         return orderItems.stream()
                 .map(orderItem -> orderItem.getPrice()
                         .multiply(BigDecimal.valueOf(orderItem.getQuantity())))
                 .reduce(BigDecimal.ZERO, BigDecimal::add);
     }
 
-    private Set<OrderItem> getOrderItems(Long id) {
+    private List<OrderItem> getOrderItems(Long id) {
         ShoppingCart cart = cartRepository.findShoppingCartByUserId(id)
                 .orElseThrow(() -> new EntityNotFoundException("Can't find "
                         + "shopping cart by user id: " + id));
         Set<CartItem> cartItems = cart.getCartItems();
         return cartItems.stream()
                 .map(orderItemMapper::cartItemToOrderItem)
-                .collect(Collectors.toSet());
+                .toList();
+    }
+
+    private Comparator<OrderItem> getComparator() {
+        return (item1, item2) -> {
+            int quantityComparison = Integer.compare(item1.getQuantity(), item2.getQuantity());
+            if (quantityComparison == 0) {
+                return item1.getPrice().compareTo(item2.getPrice());
+            }
+            return quantityComparison;
+        };
     }
 
     private void clearCartByUserId(Long id) {

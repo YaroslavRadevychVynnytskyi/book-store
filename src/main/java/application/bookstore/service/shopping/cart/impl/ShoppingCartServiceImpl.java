@@ -10,6 +10,7 @@ import application.bookstore.model.CartItem;
 import application.bookstore.model.ShoppingCart;
 import application.bookstore.repository.shopping.cart.CartItemRepository;
 import application.bookstore.repository.shopping.cart.ShoppingCartRepository;
+import application.bookstore.repository.user.UserRepository;
 import application.bookstore.service.shopping.cart.ShoppingCartService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -22,6 +23,7 @@ public class ShoppingCartServiceImpl implements ShoppingCartService {
     private final ShoppingCartMapper cartMapper;
     private final CartItemMapper itemMapper;
     private final CartItemRepository itemRepository;
+    private final UserRepository userRepository;
 
     @Transactional
     @Override
@@ -30,7 +32,8 @@ public class ShoppingCartServiceImpl implements ShoppingCartService {
         CartItem cartItem = itemMapper.toModel(request);
         cartItem.setShoppingCart(shoppingCart);
         itemRepository.save(cartItem);
-        return cartMapper.toDto(getShoppingCart(id));
+        shoppingCart.setCartItems(itemRepository.findByShoppingCartId(shoppingCart.getId()));
+        return cartMapper.toDto(cartRepository.save(shoppingCart));
     }
 
     @Override
@@ -54,7 +57,13 @@ public class ShoppingCartServiceImpl implements ShoppingCartService {
     }
 
     private ShoppingCart getShoppingCart(Long userId) {
-        return cartRepository.findShoppingCartByUserId(userId).orElseThrow(() ->
-                new EntityNotFoundException("Can't find shopping cart with userId: " + userId));
+        return cartRepository.findShoppingCartByUserId(userId).orElseGet(
+                () -> {
+                    ShoppingCart shoppingCart = new ShoppingCart();
+                    shoppingCart.setUser(userRepository.findById(userId)
+                            .orElseThrow(() -> new EntityNotFoundException("Can't find "
+                                    + "user by userId: " + userId)));
+                    return cartRepository.save(shoppingCart);
+                });
     }
 }
