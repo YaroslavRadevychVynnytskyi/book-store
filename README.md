@@ -9,35 +9,14 @@ operations such as adding new books, updating book details, retrieving book info
 adding books to shopping cart and posting orders. This API also supports user authentication 
 and authorization, allowing you to restrict access to certain endpoints based on user roles.
 ___
-## Technologies and libraries used in the project
-1. ### Java
-   * **Java** is hugely popular programming language that is used widely for building enterprise-level
-     applications. It gained recognition for its robustness, scalability and security.
-2. ### Spring Boot
-   * **Spring Boot** is a wide-spread framework for building Java applications. It provides a set of tools
-     and libraries that simplify the development process and make it easier to build reliable and
-     flexible software. Spring Boot is used to build **Online Book Store API** supplying features
-     such as Dependency Injection, security, data access and web development.
-3. ### MySQL
-   * **MySQL** is a solid open-source relational database management system that is widely used for
-     web applications. This application uses it for storing data about users, books, and other related
-     information.
-4. ### Maven
-   * **Maven** is a build automation tool used for Java projects. It serves as a standard way to manage
-     project dependencies, project builder, and test runner.
-5. ### Jackson
-   * **Jackson** is a library for processing JSON in Java. It provides features for parsing JSON, 
-     generating JSON, and mapping JSON to Java objects.
-6. ### Mapstruct
-   * **Mapstruct** is a code generator library that automates the mapping between Java objects. It
-     provides a way to define the mappings between objects using annotations and generates
-     the mapping code automatically during the build phase of project. In this project Mapstruct 
-     is used for mapping between domain models and data transfer objects.
-7. ### Liquibase
-   * **Liquibase** is a database migration tool that allows to manage database schema changes. 
-     Same as **Mapstruct** it does its work during the building stage of the application.  
-8. ### Swagger
-    * **Swagger** is an open-source tool for creating API documentation.
+# Challenges
+Since this is my first Java Spring Boot application, obviously there were many moments when I struggled.
+Every day I faced new challenges that required me to learn and adapt quickly. One of the biggest challenges
+I faced was Docker. Not the Docker itself, but the fact that it was almost impossible to use it normally
+on my Windows-driven laptop. Unfortunately, it was also impossible to install another OS on that laptop. To overcome
+this challenge, I had to switch to another computer and install Linux on it. This was not an easy decision as
+it required me to set up a new environment and transfer all my files to the new computer.
+However, it was necessary to ensure that I could use Docker and complete the project successfully.
 ___
 ## API Architecture
 The Online Book Store API is designed to be scalable, maintainable and flexible RESTful API, so it 
@@ -133,11 +112,32 @@ In this section you will be shown couple basic use cases of the application
 ### 5. Placing an order:
   ![](https://github.com/YaroslavRadevychVynnytskyi/book-store/blob/main/readme-gifs/place-order.gif)
 ___
-# Challenges
-Since this is my first Java Spring Boot application, obviously there were many moments when I struggled.
-Every day I faced new challenges that required me to learn and adapt quickly. One of the biggest challenges 
-I faced was Docker. Not the Docker itself, but the fact that it was almost impossible to use it normally
-on my Windows-driven laptop. Unfortunately, it was also impossible to install another OS on that laptop. To overcome
-this challenge, I had to switch to another computer and install Linux on it. This was not an easy decision as 
-it required me to set up a new environment and transfer all my files to the new computer. 
-However, it was necessary to ensure that I could use Docker and complete the project successfully.
+## Technologies and libraries used in the project
+1. ### Java
+    * **Java** is hugely popular programming language that is used widely for building enterprise-level
+      applications. It gained recognition for its robustness, scalability and security.
+2. ### Spring Boot
+    * **Spring Boot** is a wide-spread framework for building Java applications. It provides a set of tools
+      and libraries that simplify the development process and make it easier to build reliable and
+      flexible software. Spring Boot is used to build **Online Book Store API** supplying features
+      such as Dependency Injection, security, data access and web development.
+3. ### MySQL
+    * **MySQL** is a solid open-source relational database management system that is widely used for
+      web applications. This application uses it for storing data about users, books, and other related
+      information.
+4. ### Maven
+    * **Maven** is a build automation tool used for Java projects. It serves as a standard way to manage
+      project dependencies, project builder, and test runner.
+5. ### Jackson
+    * **Jackson** is a library for processing JSON in Java. It provides features for parsing JSON,
+      generating JSON, and mapping JSON to Java objects.
+6. ### Mapstruct
+    * **Mapstruct** is a code generator library that automates the mapping between Java objects. It
+      provides a way to define the mappings between objects using annotations and generates
+      the mapping code automatically during the build phase of project. In this project Mapstruct
+      is used for mapping between domain models and data transfer objects.
+7. ### Liquibase
+    * **Liquibase** is a database migration tool that allows to manage database schema changes.
+      Same as **Mapstruct** it does its work during the building stage of the application.
+8. ### Swagger
+    * **Swagger** is an open-source tool for creating API documentation.
